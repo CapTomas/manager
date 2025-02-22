@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background-dark text-gray-100;
+  }
+
+  :root {
+    color-scheme: dark;
+  }
+}
+
+@layer components {
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-background-hover rounded-lg transition-colors;
+  }
+
+  .sidebar-link.active {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors flex items-center gap-2 font-medium disabled:opacity-50;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2.5 bg-background-card text-gray-200 rounded-lg hover:bg-background-hover transition-colors flex items-center gap-2 font-medium;
+  }
+
+  .card {
+    @apply bg-background-card rounded-lg border border-border p-6;
+  }
+
+  .attendance-circle {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium;
+  }
+
+  .attendance-circle.attended {
+    @apply bg-primary/20 text-primary;
+  }
+
+  .attendance-circle.missed {
+    @apply bg-red-500/20 text-red-500;
+  }
+}
+
+/* Calendar Styles */
+.rbc-calendar {
+  @apply font-sans bg-background-card rounded-lg overflow-hidden border border-border;
+}
+
+.rbc-toolbar {
+  @apply bg-background-card border-b border-border p-4;
+}
+
+.rbc-toolbar button {
+  @apply bg-background-hover text-gray-200 border-0 rounded-md px-4 py-2 hover:bg-primary/20 hover:text-primary transition-colors;
+}
+
+.rbc-toolbar button.rbc-active {
+  @apply bg-primary text-white hover:bg-primary-hover hover:text-white;
+}
+
+.rbc-header {
+  @apply bg-background-card py-3 font-medium text-gray-300 border-border;
+}
+
+.rbc-event {
+  @apply rounded-md;
+}
+
+.rbc-event.event-upcoming {
+  @apply bg-primary border-primary-hover;
+}
+
+.rbc-event.event-pending {
+  @apply bg-secondary border-secondary-hover;
+}
+
+.rbc-event.event-attended {
+  @apply bg-emerald-600 border-emerald-700;
+}
+
+.rbc-event.event-missed {
+  @apply bg-red-600 border-red-700;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background-card;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full hover:bg-border-light;
+}
+
+/* Form Elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="datetime-local"],
+textarea,
+select {
+  @apply bg-background-hover border border-border rounded-lg px-4 py-2.5 text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors;
+}
+
+/* Modal */
+.modal-overlay {
+  @apply fixed inset-0 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 z-50;
+}
+
+.modal-content {
+  @apply bg-background-card rounded-lg border border-border shadow-xl w-full max-w-md;
+}
