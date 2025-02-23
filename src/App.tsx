@@ -14,6 +14,7 @@ import {
   Check,
 } from 'lucide-react';
 import Topography from './patterns/topography';
+import Logo from './patterns/logo';
 
 const WelcomePage = () => {
   const [isAuthOpen, setIsAuthOpen] = React.useState(false);
@@ -78,10 +79,12 @@ const WelcomePage = () => {
         <nav className="flex justify-between items-center mb-20">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary rounded flex items-center justify-center">
-              <Zap className="w-6 h-6 text-white" />
+              <Logo />
             </div>
             <span className="text-xl font-bold">TeamSync</span>
           </div>
+
+
 
           <div className="flex items-center gap-6">
             <a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a>
@@ -212,21 +215,21 @@ const WelcomePage = () => {
                 {/* Quick Actions */}
                 <div className="flex gap-4">
                   <button
-                    onClick={() => setIsLoginOpen(true)}
+                    onClick={() => setIsAuthOpen(true)}
                     className="flex-1 bg-primary/10 hover:bg-primary/20 transition-colors rounded-lg p-4 text-center"
                   >
                     <MessageSquare className="w-5 h-5 text-primary mx-auto mb-2" />
                     <span className="text-sm">Team Chat</span>
                   </button>
                   <button
-                    onClick={() => setIsLoginOpen(true)}
+                    onClick={() => setIsAuthOpen(true)}
                     className="flex-1 bg-primary/10 hover:bg-primary/20 transition-colors rounded-lg p-4 text-center"
                   >
                     <Calendar className="w-5 h-5 text-primary mx-auto mb-2" />
                     <span className="text-sm">Schedule</span>
                   </button>
                   <button
-                    onClick={() => setIsLoginOpen(true)}
+                    onClick={() => setIsAuthOpen(true)}
                     className="flex-1 bg-primary/10 hover:bg-primary/20 transition-colors rounded-lg p-4 text-center"
                   >
                     <Users className="w-5 h-5 text-primary mx-auto mb-2" />
@@ -357,8 +360,8 @@ const WelcomePage = () => {
                       setIsAuthOpen(true);
                     }}
                     className={`w-full px-6 py-3 rounded font-medium transition-colors ${tier.name === 'Pro'
-                        ? 'bg-primary text-white hover:bg-primary/90'
-                        : 'bg-white/5 hover:bg-white/10'
+                      ? 'bg-primary text-white hover:bg-primary/90'
+                      : 'bg-white/5 hover:bg-white/10'
                       }`}
                   >
                     {tier.name === 'Free' ? 'Get Started' : 'Go Pro'}
@@ -370,7 +373,7 @@ const WelcomePage = () => {
         </div>
       </div>
 
-      
+
     </div>
   );
 };

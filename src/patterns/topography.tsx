@@ -1,3 +1,5 @@
+import React from "react";
+
 const Topography = ({ width = "100%", height = "100%", opacity = 0.1, className = "" }) => (
     <svg
       className={`absolute inset-0 ${className}`}
