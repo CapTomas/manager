@@ -11,33 +11,67 @@ import {
   MessageSquare,
   Calendar,
   Zap,
+  Check,
 } from 'lucide-react';
+import Topography from './patterns/topography';
 
 const WelcomePage = () => {
-  const [isLoginOpen, setIsLoginOpen] = React.useState(false);
+  const [isAuthOpen, setIsAuthOpen] = React.useState(false);
+  const [authMode, setAuthMode] = React.useState('signin'); // 'signin' or 'signup'
   const { signIn } = useAuthStore();
   const [credentials, setCredentials] = React.useState({
     email: '',
     password: '',
+    name: '',
   });
 
-  const handleLogin = (e) => {
+  const handleAuth = (e) => {
     e.preventDefault();
-    signIn(credentials.email, credentials.password);
+    if (authMode === 'signin') {
+      signIn(credentials.email, credentials.password);
+    } else {
+      // Handle sign up
+      console.log('Sign up with:', credentials);
+    }
   };
+
+  const pricingTiers = [
+    {
+      name: 'Free',
+      price: '0',
+      description: 'Perfect for hobby teams and casual players',
+      features: [
+        'Up to 20 team members',
+        'Basic event scheduling',
+        'Team chat',
+        'Personal calendar sync',
+        'Event notifications',
+        'Basic attendance tracking',
+      ],
+    },
+    {
+      name: 'Pro',
+      price: '9.99',
+      description: 'For serious teams and organizations',
+      features: [
+        'Unlimited team members',
+        'Advanced scheduling with conflicts detection',
+        'Multiple teams management',
+        'Statistics and performance tracking',
+        'Custom branding',
+        'Priority support',
+        'Tournament organization',
+        'Advanced analytics',
+      ],
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-[#0A0B0F] text-white relative overflow-hidden">
-      {/* Background with image placeholder */}
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: 'url("/path-to-your-contour-lines.png")', // Add your contour PNG here
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
+      {/* SVG Background Pattern */}
+      <Topography width="100%" height="25.9%" opacity={0.05} className="rounded-lg" />
+
+
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {/* Navigation */}
@@ -47,34 +81,25 @@ const WelcomePage = () => {
               <Zap className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-bold">TeamSync</span>
-            <span className="text-primary text-sm font-medium">PRO</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <a
-              href="#features"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Features
-            </a>
-            <a
-              href="#pricing"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Pricing
-            </a>
+            <a href="#features" className="text-gray-400 hover:text-white transition-colors">Features</a>
+            <a href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</a>
             <button
-              onClick={() => setIsLoginOpen(true)}
-              className="text-white hover:text-primary transition-colors"
+              onClick={() => {
+                setAuthMode('signin');
+                setIsAuthOpen(true);
+              }}
+              className="px-4 py-2 bg-primary rounded text-white hover:bg-primary/90 transition-colors"
             >
               Sign In
             </button>
           </div>
         </nav>
 
-        {/* Hero Section */}
+        {/* Hero Section - Updated messaging */}
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -82,19 +107,18 @@ const WelcomePage = () => {
           >
             <div className="inline-flex items-center space-x-2 bg-white/5 px-3 py-1 rounded-full border border-white/10">
               <Trophy className="w-4 h-4 text-primary" />
-              <span className="text-sm">Trusted by 2,000+ teams worldwide</span>
+              <span className="text-sm">Join 2,000+ teams worldwide</span>
             </div>
 
             <h1 className="text-5xl font-bold leading-tight">
-              Organize your team.
-              <span className="block text-primary mt-2">Play together</span>
+              Never miss a game.
+              <span className="block text-primary mt-2">Play more together</span>
             </h1>
 
             <p className="text-lg text-gray-400 max-w-lg">
-              Stop juggling spreadsheets and WhatsApp groups. Schedule
-              practices, organize matches, and manage your team - all in one
-              place. Perfect for amateur leagues, friendly tournaments, and
-              professional teams.
+              Whether you're organizing pickup games with friends or managing a professional team,
+              TeamSync makes it easy to schedule games, coordinate with teammates, and spend more
+              time playing the sports you love.
             </p>
 
             {/* CTA Buttons */}
@@ -102,7 +126,10 @@ const WelcomePage = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setIsLoginOpen(true)}
+                onClick={() => {
+                  setAuthMode('signup');
+                  setIsAuthOpen(true);
+                }}
                 className="group px-6 py-3 bg-primary rounded text-white font-medium hover:bg-primary/90 transition-colors flex items-center gap-2"
               >
                 Get Started Free
@@ -119,30 +146,20 @@ const WelcomePage = () => {
               </motion.a>
             </div>
 
-            {/* Social Proof */}
+            {/* Updated Social Proof */}
             <div className="pt-8 border-t border-white/5">
               <div className="flex gap-8">
                 <div className="group cursor-pointer">
-                  <div className="text-2xl font-bold text-primary group-hover:scale-105 transition-transform">
-                    93%
-                  </div>
-                  <div className="text-sm text-gray-400">
-                    Time saved on admin
-                  </div>
+                  <div className="text-2xl font-bold text-primary group-hover:scale-105 transition-transform">93%</div>
+                  <div className="text-sm text-gray-400">More games played</div>
                 </div>
                 <div className="group cursor-pointer">
-                  <div className="text-2xl font-bold text-primary group-hover:scale-105 transition-transform">
-                    3k+
-                  </div>
-                  <div className="text-sm text-gray-400">Active teams</div>
+                  <div className="text-2xl font-bold text-primary group-hover:scale-105 transition-transform">15k+</div>
+                  <div className="text-sm text-gray-400">Active players</div>
                 </div>
                 <div className="group cursor-pointer">
-                  <div className="text-2xl font-bold text-primary group-hover:scale-105 transition-transform">
-                    4.9/5
-                  </div>
-                  <div className="text-sm text-gray-400">
-                    Players satisfaction
-                  </div>
+                  <div className="text-2xl font-bold text-primary group-hover:scale-105 transition-transform">4.9/5</div>
+                  <div className="text-sm text-gray-400">Player satisfaction</div>
                 </div>
               </div>
             </div>
@@ -222,7 +239,7 @@ const WelcomePage = () => {
         </div>
 
         {/* Features Section */}
-        <div id="features" className="py-24">
+        <div id="features" className="py-24 ">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">
               Everything you need to lead your team
@@ -289,82 +306,71 @@ const WelcomePage = () => {
             ))}
           </div>
         </div>
+
+        {/* New Pricing Section */}
+        <div id="pricing" className="py-24">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Simple, transparent pricing</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Choose the plan that works best for your team, whether you're playing for fun or competing professionally
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {pricingTiers.map((tier, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative group"
+              >
+                {/* SVG Background for 'Pro' Plan */}
+                {tier.name === 'Pro' && (
+                  <Topography width="100%" height="100%" opacity={0.05} className="rounded-lg" />
+                )}
+
+                <div className="relative border border-white/10 rounded-lg p-8 hover:border-primary/50 transition-colors">
+                  <div className="mb-6">
+                    <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl font-bold">${tier.price}</span>
+                      <span className="text-gray-400">/month</span>
+                    </div>
+                    <p className="text-gray-400 mt-2">{tier.description}</p>
+                  </div>
+
+                  <ul className="space-y-4 mb-8">
+                    {tier.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-3">
+                        <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      setAuthMode('signup');
+                      setIsAuthOpen(true);
+                    }}
+                    className={`w-full px-6 py-3 rounded font-medium transition-colors ${tier.name === 'Pro'
+                        ? 'bg-primary text-white hover:bg-primary/90'
+                        : 'bg-white/5 hover:bg-white/10'
+                      }`}
+                  >
+                    {tier.name === 'Free' ? 'Get Started' : 'Go Pro'}
+                  </motion.button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Login Modal */}
-      {isLoginOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50"
-        >
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="bg-[#13141A] border border-white/10 p-8 rounded-lg w-full max-w-md relative"
-          >
-            <button
-              onClick={() => setIsLoginOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold">TeamSync</span>
-              <span className="text-primary text-sm font-medium">PRO</span>
-            </div>
-
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={credentials.email}
-                  onChange={(e) =>
-                    setCredentials((prev) => ({
-                      ...prev,
-                      email: e.target.value,
-                    }))
-                  }
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded focus:outline-none focus:border-primary transition-colors"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  value={credentials.password}
-                  onChange={(e) =>
-                    setCredentials((prev) => ({
-                      ...prev,
-                      password: e.target.value,
-                    }))
-                  }
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded focus:outline-none focus:border-primary transition-colors"
-                  required
-                />
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="w-full px-6 py-3 bg-primary rounded font-medium text-white hover:bg-primary/90 transition-colors"
-              >
-                Sign In
-              </motion.button>
-            </form>
-          </motion.div>
-        </motion.div>
-      )}
+      
     </div>
   );
 };
